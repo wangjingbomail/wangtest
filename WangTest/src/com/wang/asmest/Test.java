@@ -1,4 +1,4 @@
-package com.wang.ASMTest;
+package com.wang.asmtest;
 
 public class Test {
 

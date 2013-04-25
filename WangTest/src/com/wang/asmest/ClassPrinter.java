@@ -1,4 +1,4 @@
-package com.wang.ASMTest;
+package com.wang.asmtest;
 
 import org.objectweb.asm.ClassVisitor;
 

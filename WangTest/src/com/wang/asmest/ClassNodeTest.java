@@ -1,4 +1,4 @@
-package com.wang.ASMTest;
+package com.wang.asmtest;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
