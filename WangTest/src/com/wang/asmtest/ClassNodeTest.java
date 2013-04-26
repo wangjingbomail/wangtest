@@ -10,7 +10,7 @@ public class ClassNodeTest {
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader("Test");
 		
-		ClassVisitor
+//		ClassVisitor
 		//classNode.accept(classReader);
 		
 		

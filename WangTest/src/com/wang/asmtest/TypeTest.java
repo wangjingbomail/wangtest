@@ -35,10 +35,10 @@ public class TypeTest {
        
         classNode.accept(cw);
         
-        FileOutputStream fos = new FileOutputStream(new File("ASMInterface.class"));
-        fos.write(cw.toByteArray());
-        fos.flush();
-        fos.close(); 
+//        FileOutputStream fos = new FileOutputStream(new File("ASMInterface.class"));
+//        fos.write(cw.toByteArray());
+//        fos.flush();
+//        fos.close(); 
 
 	}
 }
