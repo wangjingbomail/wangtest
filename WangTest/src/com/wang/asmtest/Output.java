@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 
 public class Output {
 
+	public int b;
 	public void test(){
 		System.out.println("say hello");
 	}
@@ -22,5 +23,10 @@ public class Output {
 			 e.printStackTrace();
 		 }
 
+	}
+	
+	
+	public static class A{
+		public String a;
 	}
 }

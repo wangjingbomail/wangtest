@@ -15,7 +15,45 @@
           <scope>system</scope>
           <systemPath>${local.dir}/asm-4.1.jar</systemPath>
       </dependency>
+      
+      <dependency>
+          <groupId>asm-util</groupId>
+          <artifactId>asm-util</artifactId>
+          <version>4.1</version>
+          <scope>system</scope>
+          <systemPath>${local.dir}/asm-util-4.1.jar</systemPath>
+      </dependency>
+      <dependency>
+          <groupId>asm-tree</groupId>
+          <artifactId>asm-tree</artifactId>
+          <version>4.1</version>
+          <scope>system</scope>
+          <systemPath>${local.dir}/asm-tree-4.1.jar</systemPath>
+      </dependency>
+      <dependency>
+          <groupId>asm-xml</groupId>
+          <artifactId>asm-xml</artifactId>
+          <version>4.1</version>
+          <scope>system</scope>
+          <systemPath>${local.dir}/asm-xml-4.1.jar</systemPath>
+      </dependency>
+      <dependency>
+          <groupId>asm-commons</groupId>
+          <artifactId>asm-commons</artifactId>
+          <version>4.1</version>
+          <scope>system</scope>
+          <systemPath>${local.dir}/asm-commons-4.1.jar</systemPath>
+      </dependency>
+      <dependency>
+          <groupId>asm-analysis</groupId>
+          <artifactId>asm-analysis</artifactId>
+          <version>4.1</version>
+          <scope>system</scope>
+          <systemPath>${local.dir}/asm-analysis-4.1.jar</systemPath>
+      </dependency>
   </dependencies>
+
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
