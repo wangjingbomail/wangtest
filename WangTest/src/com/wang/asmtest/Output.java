@@ -9,6 +9,9 @@ public class Output {
 	public int b;
 	public void test(){
 		System.out.println("say hello");
+		
+		String a = new String("ok");
+		
 	}
 	
 	
