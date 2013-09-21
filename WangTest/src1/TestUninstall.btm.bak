@@ -1,0 +1,8 @@
+RULE test uninstall 
+CLASS TestUninstall
+METHOD main 
+AT LINE 6
+If true
+DO traceln("coming")
+ENDRULE
+

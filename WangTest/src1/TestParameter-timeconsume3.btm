@@ -1,0 +1,9 @@
+RULE test time consume end
+CLASS TestParameter
+METHOD void test2(int)
+AT EXIT
+IF TRUE
+DO traceln("time consume:" + getElapsedTimeFromTimer($1) ) 
+ENDRULE
+
+

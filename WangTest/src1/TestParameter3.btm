@@ -1,0 +1,7 @@
+RULE test location
+CLASS TestParameter
+METHOD void test(int)
+AT ENTRY
+IF true
+DO traceln("ok " + System.currentTimeMillis())
+ENDRULE

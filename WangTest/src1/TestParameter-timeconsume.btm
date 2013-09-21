@@ -1,0 +1,26 @@
+RULE test time consume main begin
+CLASS TestParameter
+METHOD main
+AT ENTRY
+IF TRUE
+DO createTimer(345678)
+ENDRULE
+
+RULE test time consume begin
+CLASS TestParameter
+METHOD void test2(int)
+AT ENTRY
+IF TRUE
+DO resetTimer(345678)
+ENDRULE
+
+RULE test time consume end
+CLASS TestParameter
+METHOD void test2(int)
+AT EXIT
+IF TRUE
+DO traceln("time consume:" + getElapsedTimeFromTimer(345678) ); 
+ENDRULE
+
+
+

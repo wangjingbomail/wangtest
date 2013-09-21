@@ -1,0 +1,9 @@
+RULE test location
+CLASS TestParameter
+METHOD void test(int)
+AFTER READ $j
+BIND thej = $j;
+     thej1 = thej
+IF TRUE
+DO traceln(" thei is " + $1 + " thej:" + thej + " thej1:" + thej1 )
+ENDRULE

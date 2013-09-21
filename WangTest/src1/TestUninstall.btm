@@ -1,0 +1,13 @@
+RULE trace main entry
+
+CLASS TestUninstall
+
+METHOD test
+
+AT LINE 13
+
+IF true
+
+DO traceln("entering test")
+
+ENDRULE
