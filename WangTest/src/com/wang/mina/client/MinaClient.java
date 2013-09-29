@@ -392,14 +392,7 @@ public class MinaClient extends Thread{
     		
     		String result = new String(msgBody);
     		
-    		JSONObject resultObject = JSONObject.parseObject(result);
-    		
-    		String getId = resultObject.getString("id");
-    		
-    		System.out.println("get result:" + result);
-    		msgStream.reset();
-    		id.set(Long.valueOf(getId));
-    		contentLength = 0;
+    	    System.out.println("result:" + result);
     	}
     }
 

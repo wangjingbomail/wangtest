@@ -1,0 +1,10 @@
+RULE trace main entry
+CLASS JUnitTest
+METHOD test1
+AT ENTRY
+IF true
+DO traceln("entering main");
+   THROW new java.io.IOException()
+ENDRULE
+
+
