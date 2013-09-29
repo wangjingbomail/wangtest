@@ -1,8 +1,0 @@
-RULE test location
-CLASS TestParameter
-METHOD void test(int)
-AFTER READ $j
-BIND thej = $j
-IF TRUE
-DO traceln(" thei is " + $1 + " thej:" + thej  )
-ENDRULE

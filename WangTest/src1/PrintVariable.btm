@@ -1,0 +1,7 @@
+RULE print local variable
+CLASS PrintVariable
+METHOD test
+AT WRITE $m
+IF true
+DO traceln("i is:" + $1 + " m is :" + $m)
+ENDRULE

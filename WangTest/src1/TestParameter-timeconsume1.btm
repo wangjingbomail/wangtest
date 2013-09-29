@@ -1,9 +1,0 @@
-RULE test time consume begin
-CLASS TestParameter
-METHOD void test2(int)
-AT ENTRY
-IF TRUE
-DO resetTimer(345678)
-ENDRULE
-
-
