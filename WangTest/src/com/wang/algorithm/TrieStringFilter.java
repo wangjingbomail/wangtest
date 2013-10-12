@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.wang.util.WangLogger;
 
+
 /**
  * 本类使用字典树组织关键词，这样整个匹配的复杂度为 O(N*M) 其中 N为关键词的长度 M为带匹配字符串的长度。
  * 一般的字典数如下所示(其中#表示一个节点)
@@ -29,8 +30,8 @@ public class TrieStringFilter implements StringFilter{
 	private Node head=null;
 	
 	/** 存放除根节点外的所有节点  key为树的路径. 刚开始树为空的时候，我们增加一个关键字'a'  
-	 *  则会建立一个高度为3的树，根节点的key为""  第二层节点的值为a,但是它的key为22500 ( 97+128=225 + '00')
-	 *  第三层节点的key为根节点加上它的父亲节点再加上自己的值，也就是22500000 ( 22500 + 0 + 00)
+	 *  则会建立一个高度为3的树，根节点的key为""  第二层节点的值为a,但是它的key为225, ( 97+128=225 + ',')
+	 *  第三层节点的key为根节点加上它的父亲节点再加上自己的值，也就是"225,0," ( 22500 + ',' + 0 + ',')
 	 *  每个节点的path就是它在nodeMap中的key
 	 * **/
 	private Map<String, Node> nodeMap = new HashMap<String, Node>();
@@ -42,6 +43,7 @@ public class TrieStringFilter implements StringFilter{
 	 */
 	private int nodeCount=0;
 	private int step;
+	private int keyword_num = 0;
 	
 	
 	@Override
@@ -58,6 +60,7 @@ public class TrieStringFilter implements StringFilter{
 		{
 			addWord(word);
 		}
+		
 	}
 	
 
@@ -71,8 +74,9 @@ public class TrieStringFilter implements StringFilter{
 		}
 		
 		//每一个关键词接下来的Node的状态置为‘e',表明一个关键词，这样在匹配的时候如果碰到’e'，就表明匹配一个关键词了
-		WangLogger.info(" add node path:" + node.path);
 		node.setStatus(Node.END);
+		WangLogger.info(" add path:" + node.path);
+		keyword_num++;
 	}
 	
 	/**
@@ -98,11 +102,10 @@ public class TrieStringFilter implements StringFilter{
 		}
 		
 		if ( node!=null ) {
-			//System.out.println( " node.path " + node.path );
-			WangLogger.info(" node.path:" + node.path);
+		
 			node.setStatus( Node.USED );
-		}else{
-			WangLogger.info("not delete");
+			keyword_num--;
+			WangLogger.info(" delete path:" + node.path);
 		}
 	}
 	
@@ -150,6 +153,45 @@ public class TrieStringFilter implements StringFilter{
 		return false;
 	}
 	
+	/**
+	 * 测试整个字是否完全匹配
+	 * @param word
+	 * @return
+	 */
+	@Override
+	public boolean matchWholeWord(String str){
+		//如果head为null 表明没有build就match了 
+		if(head==null) {
+			return false;
+		}
+		
+
+		byte[] data = stringToByte(str);
+		int len = str.length();		
+		
+		Node node = head;
+		for(int i=0;i<len;i++)
+		{
+			node = node.checkAndNull(data[i*2]);
+			if (node==null) {
+				return false;
+			}
+			
+			node = node.checkAndNull(data[i*2+1]);
+			if (node==null) {
+				return false;
+			}
+			
+		}
+		
+		if (node.getStatus() == Node.END) {
+		    return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
 	@Override
 	public int getNodeCount()
 	{
@@ -187,6 +229,8 @@ public class TrieStringFilter implements StringFilter{
 			this.path = path;
 		
 			nodeCount++;
+			
+			
 		}
 		
 		/*
@@ -214,7 +258,7 @@ public class TrieStringFilter implements StringFilter{
 			if (bitSet.get(c1)==false) {
 				return null;
 			}else{
-			    return nodeMap.get(path  + c1 + "00");
+			    return nodeMap.get( this.getChildNodeKey(c) );
 			}
 		}
 		
@@ -280,7 +324,7 @@ public class TrieStringFilter implements StringFilter{
 		 */
 		private String getChildNodeKey(byte c) {
 			int c1 = c + 128;
-			return this.path + c1 + "00";
+			return this.path + c1 + ",";
 		} 
 	}
 
@@ -317,6 +361,18 @@ public class TrieStringFilter implements StringFilter{
 		return data;
 	}
 	
+	
+	
+	public int getKeyword_num() {
+		return keyword_num;
+	}
+
+
+	public void setKeyword_num(int keyword_num) {
+		this.keyword_num = keyword_num;
+	}
+
+
 	public static void main(String[] args) {
 		List<String> list = new ArrayList<String>();
 		list.add("ab");

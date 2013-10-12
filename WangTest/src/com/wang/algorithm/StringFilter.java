@@ -18,6 +18,14 @@ public interface StringFilter {
 	 */
 	public boolean match(String str);
 	
+	
+	/**
+	 * 匹配整个词
+	 * @param str
+	 * @return
+	 */
+	public boolean matchWholeWord(String str);
+	
 	/**
 	 * 仅限字典数算法
 	 * 返回上次匹配中操作次数

@@ -2,6 +2,8 @@ package com.wang.algorithm;
 
 import java.util.List;
 
+
+
 /**
  * 本类使用字典树组织关键词，这样整个匹配的复杂度为 O(N*M) 其中 N为关键词的长度 M为带匹配字符串的长度。
  * 一般的字典数如下所示(其中#表示一个节点)
@@ -109,6 +111,45 @@ public class TrieStringFilterWithArray implements StringFilter{
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 测试整个字是否完全匹配
+	 * @param word
+	 * @return
+	 */
+	@Override
+	public boolean matchWholeWord(String str){
+		//如果head为null 表明没有build就match了 
+		if(head==null) {
+			return false;
+		}
+		
+
+		byte[] data = stringToByte(str);
+		int len = str.length();		
+		
+		Node node = head;
+		for(int i=0;i<len;i++)
+		{
+			node = node.checkAndNull(data[i*2]);
+			if (node==null) {
+				return false;
+			}
+			
+			node = node.checkAndNull(data[i*2+1]);
+			if (node==null) {
+				return false;
+			}
+			
+		}
+		
+		if (node.getStatus() == Node.END) {
+		    return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	@Override

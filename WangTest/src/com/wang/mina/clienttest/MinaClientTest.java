@@ -20,7 +20,11 @@ import com.wang.mina.client.ClientStateListener;
 
 
 
-
+/**
+ * 双向通道
+ * @author wang
+ *
+ */
 public class MinaClientTest extends Thread{
 
 	

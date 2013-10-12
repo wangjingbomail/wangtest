@@ -1,5 +1,6 @@
 package com.wang.java.nio;
 
+import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -27,12 +28,19 @@ public class RandomAccessFileTest {
 		
 //		byte a = 1;
 //		testWrite();
-		testFileChannel();
+//		testFileChannel();
 		
 
 //		testUsage();
 //		writeObject();
 //		readObject();
+		
+//		performaceTest();
+//		readPerformanceTest();
+//		readPerformanceForFileChannelTest();
+		writePerformaceTest2();
+		readPerformanceForFileChannelTest();
+//		performaceTestUseFileChannel();
 	}
 	
 	public static void testUsage() throws Exception {
@@ -239,11 +247,164 @@ public class RandomAccessFileTest {
 	    
 	    readFile.close();
 	    
+	}
+	
+	/**
+	 * 性能测试,写入100MB的数据，看话费多长时间
+	 */
+	public static void writePerformaceTest() throws Exception{
+		
+		RandomAccessFile file = new RandomAccessFile("randomAccessPerformance","rw");
+		
+		
+		byte[] array = new byte[1024];
+		for(int i=0;i<1024;i++) {
+		    array[i] = (byte)i; 
+
+		}
+		
+		long begin = System.currentTimeMillis();
+		int times=100*1024;
+		
+		for(int i=0; i<times; i++) {
+			file.write(array);
+		}
+	
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("time speed" + (end-begin));
+		
+		file.close();
+		
+	}
+	
+	public static void writePerformaceTest2() throws Exception{
+		
+		File file2 = new File("randomAccessPerformance2");
+		if (file2.exists()) {
+			file2.delete();
+		}
+		
+		
+		RandomAccessFile file = new RandomAccessFile("randomAccessPerformance2","rw");
+		
+		
+
+		
+		long begin = System.currentTimeMillis();
+		int times=12*1024;
+		
+		for(long i=0; i<times; i++) {
+			file.writeLong(i);
+		}
+	
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("time speed" + (end-begin));
+		
+		file.close();
+		
+	}
+	
+	/**
+	 * 测试读取的性能，读取100MB
+	 * 第一次读取，文件不在缓存中，话了2540ms，后来再读取就只需要110-120ms
+	 * @throws Exception
+	 */
+	public static void readPerformanceTest() throws Exception {
+	    RandomAccessFile file = new RandomAccessFile("randomAccessPerformance", "r");
+	    
+	    long begin = System.currentTimeMillis();
+	    byte[] byteArray = new byte[1024];
+	    while(file.read(byteArray)!=-1) {
+	    	
+	    }
+	    
+	    long end = System.currentTimeMillis();
+	    
+	    System.out.println(" read time consume:" + (end-begin));
+	    
+	    file.close();
 	    
 	    
+	}
+	
+	
+	/**
+	 * 测试读取的性能，读取100MB
+	 * 每次都在290-300ms之间，有点诡异
+	 * @throws Exception
+	 */
+	public static void readPerformanceForFileChannelTest() throws Exception {
+	    RandomAccessFile file = new RandomAccessFile("randomAccessPerformance2", "r");
+	    
+	    FileChannel fileChannel = file.getChannel();
+	    
+	    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+	    System.out.println(" before:" + byteBuffer.position());
+	    long begin = System.currentTimeMillis();
+	    
+	    while(   fileChannel.read(byteBuffer) != -1 ) {
+	    	byteBuffer.flip();
+	    	System.out.println( byteBuffer.getLong() );
+	    	byteBuffer.clear();
+	        ;	
+	    }
+//	    System.out.println(" after:" + byteBuffer.psosition());
+	    
+	    long end = System.currentTimeMillis();
+	    
+	    System.out.println(" read time consume:" + (end-begin));
 	    
 	    
-//	    fileChannel.close();
+	}
+	
+	/**
+	 * 性能测试,写入100MB的数据，我这样写，但是只写入了16K的数据，而不是100M，是什么原因？
+	 */
+	public static void performaceTestUseFileChannel() throws Exception{
+		
+		File  targetFile = new File("randomAccessPerformanceForChannel");
+		if ( targetFile.exists() ) {
+			targetFile.delete();
+		}
+		
+		RandomAccessFile file = new RandomAccessFile("randomAccessPerformanceForChannel","rw");
+		
+		int times=17;
+		
+		ByteBuffer[] byteBufferArray = new ByteBuffer[times];
+		for(int index=0; index<times; index++){
+		    
+			ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+			for(int i=0;i<4;i++) {
+		        byteBuffer.put((byte)i);
+		    }
+			
+			byteBuffer.flip();
+		    byteBufferArray[index] = byteBuffer;
+		}
+		
+		System.out.println(byteBufferArray.length);
+		
+	
+		FileChannel fileChannel = file.getChannel();
+		
+		long begin = System.currentTimeMillis();
+		
+		
+		fileChannel.write(byteBufferArray);
+		
+	
+		fileChannel.close();
+		long end = System.currentTimeMillis();
+		
+		System.out.println("time speed" + (end-begin));
+		
+		file.close();
+		
 	}
 
 }
