@@ -5,6 +5,7 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import com.wang.util.WangLogger;
 
@@ -75,7 +76,7 @@ public class TrieStringFilter implements StringFilter{
 		
 		//每一个关键词接下来的Node的状态置为‘e',表明一个关键词，这样在匹配的时候如果碰到’e'，就表明匹配一个关键词了
 		node.setStatus(Node.END);
-		WangLogger.info(" add path:" + node.path);
+		WangLogger.debug(" add path:" + node.path);
 		keyword_num++;
 	}
 	
@@ -105,7 +106,7 @@ public class TrieStringFilter implements StringFilter{
 		
 			node.setStatus( Node.USED );
 			keyword_num--;
-			WangLogger.info(" delete path:" + node.path);
+			WangLogger.debug(" delete path:" + node.path);
 		}
 	}
 	
@@ -118,7 +119,7 @@ public class TrieStringFilter implements StringFilter{
 		//如果head为null 表明没有build就match了 
 		if(head==null)
 			return false;
-		step=0;
+
 		byte[] data = stringToByte(str);
 		int len = str.length();
 		for(int i=0;i<len;i++)
@@ -255,9 +256,21 @@ public class TrieStringFilter implements StringFilter{
 		public Node checkAndNull(byte c)
 		{
 			int c1 = c + 128;  //转为大于0，这样可以在bitSet中使用
+			
+			long bitBegin  = System.nanoTime();
+			boolean isExist = bitSet.get(c1);
+			long bitEnd = System.nanoTime();
+			
+			WangLogger.info(" bit " + (bitEnd-bitBegin));
 			if (bitSet.get(c1)==false) {
 				return null;
 			}else{
+				long hashBegin = System.nanoTime();
+				WangLogger.info(" map size" + nodeMap.entrySet().size() );
+				nodeMap.get( this.getChildNodeKey(c) );
+				long hashEnd = System.nanoTime();
+				WangLogger.info(" map " + (hashEnd -hashBegin));
+				
 			    return nodeMap.get( this.getChildNodeKey(c) );
 			}
 		}
@@ -309,8 +322,19 @@ public class TrieStringFilter implements StringFilter{
 			
 			int c1 = c + 128;
 			
-			if (bitSet.get(c1) ) {
-				return nodeMap.get( getChildNodeKey(c) );
+			long bitBegin = System.nanoTime();
+			boolean isExist = bitSet.get(c1);
+			long bitEnd = System.nanoTime();
+			WangLogger.info(" bit consume:" + (bitEnd - bitBegin));
+			
+			if ( isExist ) {
+				
+				String key = getChildNodeKey(c);
+				long hashBegin = System.nanoTime();
+				Node node = nodeMap.get( key);
+				long hashEnd = System.nanoTime();
+				WangLogger.info(" hash " + (hashEnd-hashBegin));
+				return node;
 			}else{
 				return null;
 			}
@@ -323,8 +347,13 @@ public class TrieStringFilter implements StringFilter{
 		 * @return
 		 */
 		private String getChildNodeKey(byte c) {
+			long stringBegin = System.nanoTime();
 			int c1 = c + 128;
-			return this.path + c1 + ",";
+			String key = this.path + c1 + ",";
+			long stringEnd = System.nanoTime();
+			
+			WangLogger.info(" string " + (stringEnd - stringBegin));
+			return key;
 		} 
 	}
 
@@ -374,19 +403,52 @@ public class TrieStringFilter implements StringFilter{
 
 
 	public static void main(String[] args) {
+		
+		String keywordsStr = "test11,test120,test141,test147,test149,test150,test151,test152,test153,test154,test155,test156,test157,test158,test159,test160,test161,test162,test163,test164,test165,test166,test167,test168,test169,test170,test171,test172,test173,test174,test175,test176,test177,test178,test179,test180,test181,test182,test183,test184,test185,test186,test187,test188,test189,test190,test191,test192,test193,test194,test195,test196,test197,test198,test199,test200,test201,test202,test203,test204,test205,test206,test207,test208,test209,test210,test211,test212,test213,test214,test215,test216,test217,test218,test219,test220,test221,test222,test223,test224,test225,test227,test228,test229,test230,test231,test232,test233,test234,test235,test236,test237,test238,test239,test241,test242,test243,test244,test245,test246,test247,test248,test249,test250,test251,test252,test253,test254,test255,test256,test257,test258,test259,test260,test261,test262,test263,test264,test265,test266,test267,test268,test269,test270,test271,test272,test273,test274,test275,test276,test277,test278,test279,test280,test3,test31,test314,test34,test343,test345,test346,test347,test348,test349,test35,test350,test351,test352,test353,test354,test355,test36,test368,test369,test37,test370,test371,test372,test373,test374,test375,test378,test379,test38,test381,test382,test383,test384,test39,test390,test391,test392,test393,test394,test395,test40,test405,test406,test41,test416,test418,test42,test421,test424,test425,test427,test451,test46,test467,test468,test469,test47,test475,test483,test484,test53,test75,test78,test90";
+		StringTokenizer tokenizer = new StringTokenizer(keywordsStr, ",");
+		
 		List<String> list = new ArrayList<String>();
-		list.add("ab");
-		list.add("a");
-		list.add("abc");
+		while(tokenizer.hasMoreTokens()) {
+		    list.add( tokenizer.nextToken());
+		}
 		
 		TrieStringFilter filter = new TrieStringFilter();
 		filter.build(list);
 		
-		System.out.println( filter.match("a") );
-		filter.deleteWord("a");
-		System.out.println(filter.match("a"));
+		TrieStringFilter2 filter2  = new TrieStringFilter2();
+		filter2.build(list);
+		for(int i=0; i<100; i++) {
+		    WangLogger.info("--------------------------------------------------");
+		    long begin = System.nanoTime();
+		    boolean result = filter.match("一个笑温暖了自己，也test11柔软了世界~");
+		    long end = System.nanoTime();
+		    
+		    long begin1 = System.nanoTime();
+		    List<String> list2= filter2.getMatchWords("一个笑温暖了自己，也柔软了世界~");
+		    long end1 = System.nanoTime();
+		    
+		    
 		
+		    WangLogger.info( " time :" + 1.0*(end-begin)/1000 + "  " + 1.0*(end1-begin1)/1000);
+		}
 		
+//		Node[] nodeArray = new Node[256];
+//		BitSet set = new BitSet();
+//		set.set(234);
+//		set.set(12);
+//		
+//		for(int i=0; i<100;i++) {
+//		    long begin = System.nanoTime();
+//		    boolean exist = (nodeArray[123]==null);
+//		    long end = System.nanoTime();
+//
+//		    
+//		    long begin1 = System.nanoTime();
+//		    boolean exist2 = set.get(233);
+//		    long end1 = System.nanoTime();
+//		    System.out.println( "array " + (end-begin) + "  set " +(end1-begin1));
+//		}
 		
+
 	}
 }

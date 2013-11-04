@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>datapush-web</display-name>
+	
+     
+     <servlet>
+	    <servlet-name>servlet</servlet-name>
+		<servlet-class>com.wang.servlet.DataServlet</servlet-class>
+ 	 </servlet>
+
+	 <servlet-mapping>
+		<servlet-name>servlet</servlet-name>
+	    <url-pattern>/servlet</url-pattern>
+	 </servlet-mapping>
+	  
+	  
+	 <servlet>
+	    <servlet-name>servlet2</servlet-name>
+		<servlet-class>com.wang.servlet.DataServletWithJettyContinuation</servlet-class>
+ 	 </servlet>
+
+	 <servlet-mapping>
+		<servlet-name>servlet2</servlet-name>
+	    <url-pattern>/servlet2</url-pattern>
+	 </servlet-mapping>
+	 
+	 	  
+	 <servlet>
+	    <servlet-name>servlet3</servlet-name>
+		<servlet-class>com.wang.servlet.DataServletWithOutJettyContinuation</servlet-class>
+ 	 </servlet>
+
+	 <servlet-mapping>
+		<servlet-name>servlet3</servlet-name>
+	    <url-pattern>/servlet3</url-pattern>
+	 </servlet-mapping>
+	 
+</web-app>

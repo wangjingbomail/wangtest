@@ -1,58 +1,34 @@
 package com.wang.java.nio;
 
-import java.nio.ByteBuffer;
+import org.apache.mina.common.ByteBuffer;
 
-public class ByteBufferTest {
+
+
+public class ByteBufferMinaTest {
 
 	
 	public static void main(String[] args) {
 //		test1();
 //		testPartGet();
 		
-//		testPut();
-//		testArray();
-		testPutAndGet();
+		testPut();
 	}
 	
 	
 	
-	/**
-	 * 测试array方法
-	 */
-	public static void testArray() {
-		ByteBuffer byteBuffer = ByteBuffer.allocate(10);
-		byteBuffer.put((byte)1);
-		byteBuffer.put((byte)2);
-		
-		
-		byte[] byteArray = byteBuffer.array();
-		
-		System.out.println(byteArray.length);   //为10，也就是尽管byteBuffer中只有两个byte,但是array会导出所有的
-	
-		byteBuffer.flip();
-		int len = byteBuffer.limit();
-		byte[] byteArray1 = new byte[len];
-	    byteBuffer.get(byteArray1, 0, len);
-	    
-	    System.out.println(byteArray1[0] + " " + byteArray1[1]);
-	}
-	
-	
-	public static  byte[] getByteArray(ByteBuffer byteBuffer) {
-        int len = byteBuffer.limit();
-	    byte[] byteArray = new byte[len];
-	    byteBuffer.get(byteArray, 0, len);
-	    
-	    return byteArray;
-	}
 	public static void testPut() {
-		ByteBuffer buffer = ByteBuffer.allocate(10);
+		ByteBuffer buffer = ByteBuffer.allocate(1020);
+		 
+		byte[] byteArray = new byte[1020];
+		for(int i=0; i<1020; i++ ) {
+			byteArray[i] = (byte)(i %127);
+		}
+		System.out.println( "length:" + byteArray.length );
 		
 		for(int i=0; i<100; i++) {
 			
-			System.out.println(" is direct" + buffer.isDirect());
 			System.out.println(buffer.limit() + " " + buffer.position());
-			buffer.put("abcdefghij".getBytes());
+			buffer.put(byteArray);
 			System.out.println("after " + buffer.limit() + " " + buffer.position());
 			buffer.flip();
 			buffer.get();
@@ -64,27 +40,6 @@ public class ByteBufferTest {
 		}
 		
 
-	}
-	
-	public static void testPutAndGet() {
-		ByteBuffer buffer = ByteBuffer.allocate(10);
-		
-		buffer.put((byte)1);
-		buffer.put((byte)2);
-		
-		buffer.flip();
-		
-		buffer.get();
-		buffer.get();
-		
-		printBuffer(buffer);
-		
-//		buffer.flip();
-		buffer.clear();
-		
-		printBuffer(buffer);
-		
-		
 	}
 	
 	public static void testPartGet() {
@@ -133,16 +88,4 @@ public class ByteBufferTest {
 	    
 	    System.out.println(new String(dst));       //答应"abc"
 	}
-	
-	private static void printBuffer(ByteBuffer buffer) {
-		byte[] array = buffer.array();
-		
-		int len = array.length;
-		for(int i=0; i<len; i++){
-			System.out.print( array[i]);
-		}
-		
-		System.out.println(" ");
-	}
-
 }

@@ -20,6 +20,7 @@ public class RandomAccessFileTest {
 	
 	public static void main(String[] args) throws Exception{
 		
+		testRead();
 //		int v = 1;
 //		System.out.println((v >>> 24) & 0xFF );
 //		System.out.println((v >>> 16) & 0xFF );
@@ -38,8 +39,8 @@ public class RandomAccessFileTest {
 //		performaceTest();
 //		readPerformanceTest();
 //		readPerformanceForFileChannelTest();
-		writePerformaceTest2();
-		readPerformanceForFileChannelTest();
+//		writePerformaceTest2();
+//		readPerformanceForFileChannelTest();
 //		performaceTestUseFileChannel();
 	}
 	
@@ -60,6 +61,17 @@ public class RandomAccessFileTest {
 		readFile.close();
 	}
 	
+	
+	public static void testRead() throws Exception{
+		RandomAccessFile randomAccessFile = new RandomAccessFile("/home/wang/文档/push框架/测试数据/与boardreader测试/pushcount/pushcount.stat","r");
+	    
+		byte b=0;
+		while( (b=randomAccessFile.readByte())!=-1 ) {
+		  	System.out.println(b);
+		}
+		
+		randomAccessFile.close();
+	}
 	
 	/**
 	 * 测试写入，发现是按照16位的高位先写入的选择来进行的
