@@ -6,6 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src1"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
@@ -17,5 +18,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/asm-analysis-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/byteman-bmunit.jar"/>
+	<classpathentry kind="lib" path="lib/byteman-install.jar"/>
+	<classpathentry kind="lib" path="lib/byteman-submit.jar"/>
+	<classpathentry kind="lib" path="lib/byteman.jar"/>
+	<classpathentry kind="lib" path="lib/testng-6.3.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

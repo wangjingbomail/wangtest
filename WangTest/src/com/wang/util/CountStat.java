@@ -2,7 +2,9 @@ package com.wang.util;
 
 import java.io.RandomAccessFile;
 
-import com.alibaba.fastjson.JSONObject;
+import net.sf.json.JSONObject;
+
+
 
 
 public class CountStat {
@@ -19,7 +21,7 @@ public class CountStat {
         String str ="";
         while((str=file.readLine())!=null){
             String[] strArray = str.split(" ");	
-            JSONObject jsonObject = new JSONObject(strArray[3]);
+            JSONObject jsonObject = JSONObject.fromObject(strArray[3]);
             
         }
 		
