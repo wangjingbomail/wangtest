@@ -68,6 +68,7 @@ public class XMLBuilder {
 
         Format f = Format.getPrettyFormat();
         f.setEncoding("UTF-8");
+        f.setIndent(" ");
         f.setOmitDeclaration(true);
 
         outputter.setFormat(f);
@@ -88,8 +89,12 @@ public class XMLBuilder {
 	
 	public static void main(String[] args) {
 		XMLBuilder xmlBuilder = XMLBuilder.getBuilder("xml");
-		xmlBuilder.append("ToUserName", "4956556144");
+		xmlBuilder.appendCDATA("ToUserName", "4956556144");
 		xmlBuilder.appendCDATA("FromUserName", "4956556144");
+		xmlBuilder.append("CreateTime", "1348831860");
+		xmlBuilder.appendCDATA("MsgType", "text");
+		xmlBuilder.appendCDATA("content", "this is test");
+		xmlBuilder.append("MsgId", "1234567890123456");
 		
 		System.out.println(xmlBuilder.toString());
 		
