@@ -24,5 +24,14 @@
 	<classpathentry kind="lib" path="lib/byteman-submit.jar"/>
 	<classpathentry kind="lib" path="lib/byteman.jar"/>
 	<classpathentry kind="lib" path="lib/testng-6.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-commons-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-tree-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-util-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-xml-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/getobjectsize.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-6.1.25.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-6.1.25.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
