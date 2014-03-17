@@ -11,7 +11,7 @@ import org.jdom.output.XMLOutputter;
 public class XMLBuilder {
 
 
-	private Document doc;
+//	private Document doc;
 	private Element element;
 
 	private XMLBuilder() {
@@ -29,7 +29,7 @@ public class XMLBuilder {
 		
 		
 		xmlBuilder.element = new Element(name);
-		xmlBuilder.doc = new Document( xmlBuilder.element);
+//		xmlBuilder.doc = new Document( xmlBuilder.element);
 		
 		return xmlBuilder;
 	}
@@ -61,6 +61,15 @@ public class XMLBuilder {
 		this.element.addContent(element);
 	}
 	
+	/**
+	 * 增加嵌套的xml
+	 * @param xmlBuilder
+	 */
+	public void appendBuilder(XMLBuilder xmlBuilder) {
+		this.element.addContent(xmlBuilder.getElement());
+	}
+	
+	
 	@Override
 	public String toString() {
 		
@@ -73,7 +82,7 @@ public class XMLBuilder {
 
         outputter.setFormat(f);
         
-      
+        Document doc = new Document( element);
         
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         
@@ -87,7 +96,25 @@ public class XMLBuilder {
 	}
 	
 	
+	
+	
+	
+	
+	public Element getElement() {
+		return element;
+	}
+
+	public void setElement(Element element) {
+		this.element = element;
+	}
+
 	public static void main(String[] args) {
+		
+//		test();
+		test2();
+	}
+	
+	public static void test() {
 		XMLBuilder xmlBuilder = XMLBuilder.getBuilder("xml");
 		xmlBuilder.appendCDATA("ToUserName", "4956556144");
 		xmlBuilder.appendCDATA("FromUserName", "4956556144");
@@ -96,8 +123,30 @@ public class XMLBuilder {
 		xmlBuilder.appendCDATA("content", "this is test");
 		xmlBuilder.append("MsgId", "1234567890123456");
 		
-		System.out.println(xmlBuilder.toString());
 		
+		
+		System.out.println(xmlBuilder.toString());
+	}
+	
+	
+	public static void test2() {
+		XMLBuilder xmlBuilder = XMLBuilder.getBuilder("xml");
+		xmlBuilder.appendCDATA("ToUserName", "4956556144");
+		xmlBuilder.appendCDATA("FromUserName", "4956556144");
+		xmlBuilder.append("CreateTime", "1348831860");
+		xmlBuilder.appendCDATA("MsgType", "text");
+		xmlBuilder.appendCDATA("content", "this is test");
+		xmlBuilder.append("MsgId", "1234567890123456");
+		
+		
+		XMLBuilder xmlBuilder2 = XMLBuilder.getBuilder("bean");
+		xmlBuilder2.append("property", "value");
+		xmlBuilder.appendBuilder(xmlBuilder2);
+		
+		
+		
+		
+		System.out.println(xmlBuilder.toString());
 	}
 	
 	

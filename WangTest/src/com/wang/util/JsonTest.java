@@ -12,7 +12,8 @@ import com.wang.domain.Room;
 public class JsonTest {
 
 	public static void main(String[] args) {
-	    test1();	
+//	    test1();	
+		test3();
 	}
 	
 	public static void test1() {
@@ -35,5 +36,17 @@ public class JsonTest {
 		jb.append("text", "a");
 //		jb.append(name, value)
 		
+	}
+	
+	
+	public static void test3() {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("str", "okfd");
+		
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("count", 34);
+		jsonObject.put("object", jsonObject2);
+		
+		System.out.println(jsonObject.toString());
 	}
 }
