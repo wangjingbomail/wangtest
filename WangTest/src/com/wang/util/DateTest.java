@@ -1,13 +1,23 @@
 package com.wang.util;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateTest {
 
 	
 	public static void main(String[] args) throws Exception {
+		
+		Date date = new Date(1396796258082l);
+		System.out.println(date);
+		
+		
+		Date date2 = new Date(1396796258251l);
+		System.out.println(date2);
+		
 //		test1();                             1385308793000
         //System.out.println("out:" + new Date(1358264234000l) + "   "  + "out2:" + new Date(1385308793000l));
 		                                     
@@ -16,8 +26,9 @@ public class DateTest {
 		
 //		System.out.println("t2" + new Date(1384848352000l));
 		
-		timeStampDateTest();
+//		timeStampDateTest();
 //		test2();
+//		complexDateFormat( );
 	}
 	
 	public static void test1() {
@@ -55,5 +66,23 @@ public class DateTest {
 		Timestamp timeStamp = new java.sql.Timestamp(time);
 		
 		System.out.println(" time:" + time + " " + timeStamp.getTime());
+	}
+	
+	
+//	"Mon Jul 16 18:09:20 +0800 2012"
+	public static void complexDateFormat( ) throws Exception {
+		Date date = new Date(1395740958686l);
+		System.out.println(date);
+		
+		DateFormat dateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss Z yyyy", Locale.US);
+		
+		String str = "Mon Jul 16 18:09:20 +0800 2012";
+		Date date2 = dateFormat.parse( str );
+		
+		
+		DateFormat dateFormat2 = new SimpleDateFormat("EEE MMM d HH:mm:ss Z yyyy");
+		
+		System.out.println( dateFormat2.format( date2 ) );
+//		System.out.println( dateFormat.format(date) );
 	}
 }

@@ -5,14 +5,19 @@ public class StringTest {
 
 	
 	public static void main(String[] args) {
+		
+		String str = "1506.test";
+		String[] array = str.split("\\.");
+		
+		System.out.println(array);
 //		String a = " order_id in ('123')";
 //		System.out.println(a.replace('\'', ' '));
 //		test1();
 //		test3();
 		
-		String a = null;
-		String b = String.valueOf(a);
-		System.out.println(b);
+//		String a = null;
+//		String b = String.valueOf(a);
+//		System.out.println(b);
 //		String b = a + "1001";
 //		System.out.println(b);
 //		String notify_time = "|41|45";
