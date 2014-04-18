@@ -35,4 +35,12 @@ public class Publisher {
 			System.out.println(" say:" + str);
 		}
 	}
+	
+	public void test2() {
+		for(Subscriber subscriber:list) {
+			 subscriber.test2();
+			
+//			System.out.println(" say:" + str);
+		}
+	}
 }

@@ -16,11 +16,11 @@ public class MapTest {
     	
 //    	treeMapTest();
     	
-    	Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    	Map<Integer, Integer> map = new HashMap<Integer, Integer>(4);
     	map.put(10050, 1);
     	
-    	System.out.println(map.containsKey(10050));
-    	System.out.println(map.containsKey(String.valueOf(10050)));
+//    	System.out.println(map.containsKey(10050));
+//    	System.out.println(map.containsKey(String.valueOf(10050)));
 
 	}
     

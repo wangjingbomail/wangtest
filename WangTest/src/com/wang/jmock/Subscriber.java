@@ -26,4 +26,5 @@ public interface Subscriber {
 	 */
 	public String say(String message);
 
+	public void test2();
 }

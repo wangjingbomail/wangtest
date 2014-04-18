@@ -74,11 +74,12 @@ public class PublisherTest {
 		});
 		
 		publisher.publish(message);   //这个里面,message参数不能修改
-		publisher.publish(message2);   //这个地方不支持，但是看文档应该是支持的，有点奇怪 
+//		publisher.publish(message2);   //这个地方不支持，但是看文档应该是支持的，有点奇怪 
 		publisher.talk(message);
 		publisher.say(message);
 		publisher.say(message);
 		publisher.say(message);
+		publisher.test2();
 //		publisher.say(message);   //如果再多调用一次会出错
 		
 		context.assertIsSatisfied();
