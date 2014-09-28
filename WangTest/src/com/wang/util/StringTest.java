@@ -1,11 +1,50 @@
 package com.wang.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class StringTest {
+	
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+    private static DateFormat dateHourFormat = new SimpleDateFormat("yyyyMMddHH");
+	   /**
+     * 获得下周星期天的日期字符串。举例:20140706
+     *
+     * @return
+     */
+    public static String getSundayStr() {
+        Calendar calendar = Calendar.getInstance();
 
+        calendar.add(Calendar.WEEK_OF_YEAR, 2);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String getThisSundayStr() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        return dateFormat.format(calendar.getTime());
+    }
 	
 	public static void main(String[] args) {
 		
+		System.out.println(getThisSundayStr());
+		System.out.println(getSundayStr());
+		
+		System.out.println(new Date(1404403199000l));
+		System.out.println(new Date(1402502400000l));
+		
+		System.out.println(Integer.MAX_VALUE + -1);
+		long a = 345;
+		
+		System.out.println(a*1.0/10);
 		String str = "1506.test";
 		String[] array = str.split("\\.");
 		

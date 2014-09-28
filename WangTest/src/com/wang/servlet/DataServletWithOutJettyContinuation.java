@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.mortbay.jetty.nio.SelectChannelConnector.RetryContinuation;
 import org.mortbay.util.ajax.ContinuationSupport;
 
@@ -22,8 +24,12 @@ public class DataServletWithOutJettyContinuation extends HttpServlet{
 		
 		
 		try {
-			Thread.sleep(2000);
-		    response.getOutputStream().write("without continuation".getBytes());
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", 1);
+			String str = jsonObject.toString();
+			
+			Thread.sleep(200);
+		    response.getOutputStream().write((str+"\r\n").getBytes());
 		    response.getOutputStream().close();
 		}catch(Exception e) {
 			System.out.println("exception:"  + e);

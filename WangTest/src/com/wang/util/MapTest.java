@@ -16,8 +16,14 @@ public class MapTest {
     	
 //    	treeMapTest();
     	
+    	long a = Long.valueOf("1000000000000000000");
+    	System.out.println(a);
     	Map<Integer, Integer> map = new HashMap<Integer, Integer>(4);
     	map.put(10050, 1);
+    	
+    	map.get(null);
+    	map.remove(null);
+    	System.out.println("ok");
     	
 //    	System.out.println(map.containsKey(10050));
 //    	System.out.println(map.containsKey(String.valueOf(10050)));

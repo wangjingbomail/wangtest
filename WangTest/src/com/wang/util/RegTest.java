@@ -1,12 +1,92 @@
 package com.wang.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegTest {
 
 	public static void main(String[] args) {
-		test3();
+//		test3();
+//		emailTest();
+//		mobileTest();
+		phoneTest();
+	}
+	
+	
+	public static void phoneTest() {
+		Pattern pattern = Pattern.compile("((010)|(021)|(0[0-9]{3}))-[0-9]{7,8}");
+//		Pattern pattern = Pattern.compile("((13)|(15)|(18))d{9}");
+		List<String> list = new ArrayList<String>();
+		
+		list.add("010-89561247");
+		list.add("021-89561247");
+		list.add("0710-89561247");
+		list.add("0710-8956124");
+		
+		list.add("0710-895612a");
+		list.add("07108956124");
+		list.add("0710-895612");
+		list.add("1710-89561247");
+		list.add("01-89561247");
+		list.add("010-89561247a");
+		
+		
+		for(String phone:list) {
+			System.out.println(phone + " " + pattern.matcher(phone).matches());
+		}
+		
+	}
+	
+	
+	public static void mobileTest() {
+		Pattern pattern = Pattern.compile("((13)|(15)|(18))[0-9]{9}");
+//		Pattern pattern = Pattern.compile("((13)|(15)|(18))d{9}");
+		List<String> list = new ArrayList<String>();
+		
+		list.add("18920159228");
+		list.add("15920159228");
+		list.add("13920159228");
+		
+		list.add("1392015922");
+		
+		for(String phone:list) {
+			System.out.println(phone + " " + pattern.matcher(phone).matches());
+		}
+		
+	}
+	
+	public static void emailTest() {
+//		Pattern pattern = Pattern.compile("([a-zA-Z0-9_]){5,50}@(weibo/.com|sina/.com/.cn)");
+//		Pattern pattern = Pattern.compile("([a-zA-Z0-9_]){5,50}@((weibo\\.com)|(sina\\.com\\.cn))");
+		
+		Pattern pattern = Pattern.compile("((([a-z])|([A-Z])|([0-9])|_){5,50}@((weibo\\.com)|(sina\\.com\\.cn)))");
+		List<String> list = new ArrayList<String>();
+		
+		list.add("1dafdZ3_@weibo.com");
+		list.add("1dafdZ3_@sina.com.cn");
+		list.add("_dafdZ3_@sina.com.cn");
+		list.add("2dafdZ3_@sina.com.cn");
+		
+		list.add("@fd45@sina.com.cn");
+		list.add("234fd@163.com");
+		list.add("234@sina.com.cn");
+		
+//		list.add("1dafdZ3_@weibo.com");
+//		list.add("1dafdZ3_@sina.com.cn");
+//		list.add("_dafdZ3_@weibo.com");
+//		list.add("2dafdZ3_@weibo.com");
+//		
+//		list.add("@fd45@weibo.com");
+//		list.add("234fd@163.com");
+//		list.add("234@weibo.com");
+		
+		for(String email:list) {
+			System.out.println(email + " " + pattern.matcher(email).matches());
+		}
+		
+		
 	}
 	
 	public static void test1() {

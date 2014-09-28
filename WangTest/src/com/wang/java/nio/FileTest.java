@@ -8,7 +8,11 @@ public class FileTest {
 
 	
 	public static void main(String[] args) throws Exception {
-		writeFile();
+//        A a = new A();
+//        System.out.println(a.isA());
+		
+		String a = "";
+		System.out.println(Integer.valueOf(a));
 	}
 	
 	
@@ -20,5 +24,19 @@ public class FileTest {
 		writer.flush();
 		
 		writer.close();
+	}
+	
+	static class A{
+		private boolean a;
+
+		public boolean isA() {
+			return a;
+		}
+
+		public void setA(boolean a) {
+			this.a = a;
+		}
+		
+		
 	}
 }

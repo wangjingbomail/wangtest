@@ -8,15 +8,22 @@ import java.util.Locale;
 
 public class DateTest {
 
+	private static boolean flag;
 	
 	public static void main(String[] args) throws Exception {
 		
-		Date date = new Date(1396796258082l);
+		System.out.println(System.currentTimeMillis()/1000 + 60*1);
+		
+		System.out.println(flag);
+		
+		Date date = new Date(1398870000000l);
 		System.out.println(date);
 		
 		
-		Date date2 = new Date(1396796258251l);
+		Date date2 = new Date(1406795373000l);
 		System.out.println(date2);
+		
+		System.out.println(new Date(0));
 		
 //		test1();                             1385308793000
         //System.out.println("out:" + new Date(1358264234000l) + "   "  + "out2:" + new Date(1385308793000l));
